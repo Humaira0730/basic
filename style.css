@@ -241,13 +241,18 @@ a{
  }
  .logo a {
     font-family: 'Montserrat', sans-serif;
+    /*
 	color: #fff;
+	*/
+    color:yellowgreen;
 	display: inline-block;
-	font-size: 32px;
+	font-size: 25px;
 	font-weight: 800;
 	letter-spacing: 3px;
 	margin-top: 21px;
+    /*
 	text-transform: uppercase;
+	*/
 	-webkit-transition: all 0.4s ease-in-out 0s;
 	transition: all 0.4s ease-in-out 0s;
 	line-height: 40px;
@@ -333,7 +338,7 @@ a{
  }
  .welcome-text h1 {
      text-transform: capitalize;
-     font-size: 85px;
+     font-size: 70px;
      font-weight: 900;
      margin-bottom: 10px;
  }
