@@ -1235,3 +1235,20 @@ h3.comment-form-title{
      color: #fff;
      margin: 0px;
  }
+ /*================================================
+       14. ADJUSTMENTS
+==================================================*/
+ /*
+ .row-eq-height{
+     display: -webkit-box;
+     display: -webkit-flex;
+     display: -ms-flexbox;
+     display: flex;
+ }
+ */
+ .makeMaxHeight{
+     height:90%;;
+
+ }
+
+

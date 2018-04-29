@@ -124,6 +124,14 @@ NOTE: This is the custom jQuery file for the template
     
 
     });
+
+    $('.row-eq-height').each(function(){
+        var highestBox = 0;
+        $(this).children('[class*="col-"]').each(function(index, el){
+            if( $(el).height() > highestBox ) highestBox = $(el).height();
+        });
+        $(this).children('[class*="col-"]').css('height',highestBox);
+    });
     
    
     $window.on('load', function(){
