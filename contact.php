@@ -3,6 +3,26 @@
  *  CONFIGURE EVERYTHING HERE
  */
 
+
+echo " <table> ";
+
+
+
+     foreach ($_POST as $key => $value) {
+         echo "<tr>";
+         echo "<td>";
+         echo $key;
+         echo "</td>";
+         echo "<td>";
+         echo $value;
+         echo "</td>";
+         echo "</tr>";
+     }
+
+
+
+ echo "</table>";
+
 // an email address that will be in the From field of the email.
 $from = 'Demo contact form <demo@domain.com>';
 
