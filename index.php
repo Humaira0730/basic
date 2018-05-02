@@ -1,4 +1,73 @@
-<!DOCTYPE html>
+<?php
+
+    require_once(dirname(__FILE__). "/vendor/autoload.php");
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
+
+    require(dirname(__FILE__)."/vendor/phpmailer/phpmailer/src/Exception.php");
+    require(dirname(__FILE__)."/vendor/phpmailer/phpmailer/src/PHPMailer.php");
+    require(dirname(__FILE__)."/vendor/phpmailer/phpmailer/src/SMTP.php");
+
+    if( isset($_POST['submit-email']) ){
+
+        $subject_from = isset($_POST['subject'])?$_POST['subject']:"";
+        $name_from =  isset($_POST['name'])?$_POST['name']:"Unknown";
+        $email_from = isset($_POST['email'])?$_POST['email']:"unknown@mail.com";
+        $message_from = isset($_POST['message'])?$_POST['message']:"No message"."</p>";
+
+        $mail = new PHPMailer;
+
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+        //Enable SMTP debugging.
+        $mail->SMTPDebug = 0;
+        //Set PHPMailer to use SMTP.
+        $mail->isSMTP();
+        //Set SMTP host name
+        $mail->Host = "smtp.gmail.com";
+        //Set this to true if SMTP host requires authentication to send email
+        $mail->SMTPAuth = true;
+        //Provide username and password
+        $mail->Username = "test.2348148@gmail.com";
+        $mail->Password = "******";
+
+        $mail->addAddress("eramirezcarlos@gmail.com", "Carlos A Ramirez");
+
+        $mail->isHTML(true);
+
+        $mail->From = isset($_POST['email'])?$_POST['email']:"unknown@mail.com";
+        $mail->FromName = isset($_POST['name'])?$_POST['name']:"Unknown";
+        $mail->Subject = "Portfolio - " .$subject_from." - " .$email_from . " - " . $name_from;
+
+
+        $content = $message_from;
+
+        $mail->Body =   $content;
+
+        $mail->AltBody = $content;
+
+
+        if(!$mail->send())
+        {
+            $_POST['email_error'] =  $mail->ErrorInfo;
+        }
+        else
+        {
+            $_POST['email_success'] = "Message has been sent successfully";
+        }
+
+
+    }
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -6,7 +75,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Carlos Arturo Ramirez - Professional Portfolio">
     <meta name="keywords"
-          content="portfolio, resume, cv, portfolio, personal, developer, fullstack developer, onepage, clean, modern">
+          content="portfolio, resume, cv, portfolio, personal, developer, fullstack developer, toronto, developer, clean, modern, pega developer">
     <meta name="author" content="Carlos Arturo Ramirez">
 
     <title>Carlos Arturo Ramirez - Professional Portfolio</title>
@@ -635,7 +704,7 @@
 <div class="stat-area section-padding">
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-6"> <!-- Single stat  -->
+            <div class="col-md-3 col-sm-6">
                 <div class="single-stat">
                     <div class="inner">
                         <div class="stat-icon-box">
@@ -648,7 +717,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6"> <!-- Single stat  -->
+            <div class="col-md-3 col-sm-6">
                 <div class="single-stat">
                     <div class="inner">
                         <div class="stat-icon-box">
@@ -661,7 +730,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6"> <!-- Single stat  -->
+            <div class="col-md-3 col-sm-6">
                 <div class="single-stat">
                     <div class="inner">
                         <div class="stat-icon-box">
@@ -674,7 +743,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6"> <!-- Single stat  -->
+            <div class="col-md-3 col-sm-6">
                 <div class="single-stat">
                     <div class="inner">
                         <div class="stat-icon-box">
@@ -801,12 +870,19 @@
                     <p>Feel Free to Contact</p>
                 </div>
             </div>
-        </div> <!--/.row-->
+        </div>
+        <?php
+            if (isset( $_POST['email_success']) ){
+                include('success.php');
+            }else if( isset($_POST['email_error']) ){
+                include('error.php');
+            }
+        ?>
 
         <div class="row">
             <div class="col-md-7">
                 <div class="contact-form">
-                    <form id="contact-form" method="get" action="contact.php"> <!-- Start Contact From -->
+                    <form id="contact-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"> <!-- Start Contact From -->
                         <div class="messages"></div>
                         <div class="controls">
                             <div class="row">
@@ -850,7 +926,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <input type="submit" class="btn btn-effect btn-sent" value="Send message">
+                                    <input type="submit" class="btn btn-effect btn-sent" value="Send message" name="submit-email">
                                 </div>
                             </div>
                         </div>

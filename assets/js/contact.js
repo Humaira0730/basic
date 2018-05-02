@@ -16,7 +16,7 @@ $(function () {
 
         // if the validator does not prevent form submit
         if (!e.isDefaultPrevented()) {
-            var url = "contact.php";
+            var url = "contact_ori.php";
 
             // POST values in the background the the script URL
             $.ajax({
@@ -25,7 +25,7 @@ $(function () {
                 data: $(this).serialize(),
                 success: function (data)
                 {
-                    // data = JSON object that contact.php returns
+                    // data = JSON object that contact_ori.php returns
 
                     // we recieve the type of the message: success x danger and apply it to the 
                     var messageAlert = 'alert-' + data.type;
