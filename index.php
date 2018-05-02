@@ -36,7 +36,7 @@
         $mail->SMTPAuth = true;
         //Provide username and password
         $mail->Username = "test.2348148@gmail.com";
-        $mail->Password = "******";
+        $mail->Password = "";
 
         $mail->addAddress("eramirezcarlos@gmail.com", "Carlos A Ramirez");
 
